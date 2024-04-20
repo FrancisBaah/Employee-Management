@@ -113,7 +113,8 @@ const ChainOfCommand = () => {
           )}
         </Droppable>
       </DragDropContext>
-      {/* <ReOrganize /> */}
+      {/*Need to Comment ReOrganize for testing to pass */}
+      <ReOrganize />
     </section>
   );
 };
