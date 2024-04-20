@@ -4,7 +4,7 @@ import MainLayout from "./components/MainLayout";
 import Employee from "./components/employee/Employee";
 import WelcomePage from "./components/WelcomePage";
 import Dashboard from "./components/Dashboard";
-import ChainOfCommand from "./components/chainOfCommand";
+import ChainOfCommand from "./components/ChainOfCommand";
 
 function App() {
   return (
