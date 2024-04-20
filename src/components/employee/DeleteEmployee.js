@@ -33,10 +33,7 @@ const DeleteEmployee = ({ record, fetchEmployee, handleCancel }) => {
       body: JSON.stringify(formData),
     };
     try {
-      const res = await fetch(
-        `${jsonServerUrl}/employees/${id}`,
-        requestOptions
-      );
+      const res = await fetch(`${jsonServerUrl}/${id}`, requestOptions);
       if (res) {
         message.success("Deleted Successfully");
         fetchEmployee();

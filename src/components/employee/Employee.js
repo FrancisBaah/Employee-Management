@@ -37,9 +37,9 @@ const Employee = () => {
     try {
       const res = await fetch(`${jsonServerUrl}`);
       const data = await res.json();
-      //   console.log(data);
+      console.log(data);
       if (data) {
-        const tableArray = data?.map((item) => ({
+        const tableArray = data.employees?.map((item) => ({
           key: item.id || "",
           id: item.id || "",
           name: item.name || "",
