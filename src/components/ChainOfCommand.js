@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { jsonServerUrl } from "./API/jsonServerURL";
-
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Spin } from "antd";
 
 const EmployeeNode = ({ employee, index }) => {
   if (!employee || !employee.subordinates) {
-    return null; // Return null or handle the case where employee or subordinates are undefined/null
+    return null;
   }
 
   return (
-    <Draggable draggableId={employee.id + 100} index={index}>
+    <Draggable draggableId={employee.id} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
@@ -42,35 +41,31 @@ const ChainOfCommand = () => {
   const [loading, setLoading] = useState(false);
 
   const fetchEmployee = async () => {
-    setLoading(true); // Set loading state to true
+    setLoading(true);
     try {
       const res = await fetch(`${jsonServerUrl}/employees`);
       const data = await res.json();
       if (data && Array.isArray(data)) {
-        setLoading(false);
-        const employeesMap = new Map(); // Map to store employees by ID for quick lookup
-        const hierarchy = []; // Array to store top-level supervisors
-
-        // Build employees map for quick lookup
+        const employeesMap = new Map();
+        const hierarchy = [];
         data.forEach((employee) => {
-          employeesMap.set(employee?.name, { ...employee, subordinates: [] });
+          employeesMap.set(employee?.id, { ...employee, subordinates: [] });
         });
-
-        // Iterate through employees to build hierarchy
         data.forEach((employee) => {
           const supervisorId = employee.supervisor;
           const supervisor = employeesMap.get(supervisorId);
-
           if (supervisor) {
-            supervisor.subordinates.push(employeesMap.get(employee?.name));
+            supervisor.subordinates.push(employeesMap.get(employee?.id));
           } else {
-            hierarchy.push(employeesMap.get(employee?.name)); // Supervisor with no supervisor
+            hierarchy.push(employeesMap.get(employee?.id));
           }
         });
-        setDataSource(hierarchy); // Set the hierarchical data as the data source
+        setDataSource(hierarchy);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,26 +75,22 @@ const ChainOfCommand = () => {
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
-      return; // Dragged outside the droppable area, do nothing
+      return;
     }
-
     const { source, destination } = result;
     if (source.index === destination.index) {
-      return; // Item was dropped in the same position, no reordering needed
+      return;
     }
-
     const updatedDataSource = [...dataSource];
-    const [removed] = updatedDataSource.splice(source.index, 1); // Remove dragged item
-    updatedDataSource.splice(destination.index, 0, removed); // Insert dragged item at new position
-
-    // Update the state with the reordered data source
+    const [removed] = updatedDataSource.splice(source.index, 1);
+    updatedDataSource.splice(destination.index, 0, removed);
     setDataSource(updatedDataSource);
   };
 
   return loading ? (
     <Spin />
   ) : (
-    <section className="max-h-[500px]">
+    <section className="max-h-[500px] overflow-auto">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="employees">
           {(provided) => (
