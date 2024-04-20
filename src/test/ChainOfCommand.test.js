@@ -25,6 +25,9 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
+////////////////////////////////////////////////////
+//Need to Comment ReOrganize in ChainOfCommand for testing to pass////
+///////////////////////////////////////////////////
 test("renders ChainOfCommand component with employee nodes", async () => {
   await act(async () => {
     render(<ChainOfCommand />);

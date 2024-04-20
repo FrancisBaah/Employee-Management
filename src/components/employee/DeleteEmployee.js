@@ -9,6 +9,7 @@ const DeleteEmployee = ({ record, fetchEmployee, handleCancel }) => {
   });
 
   useEffect(() => {
+    //Setting form data to received props
     if (record) {
       setFormData({
         id: record.id || "",
@@ -19,10 +20,12 @@ const DeleteEmployee = ({ record, fetchEmployee, handleCancel }) => {
 
   const { name, id } = formData;
 
+  //Picking input values
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  //API call to delete employee
   const onSubmit = async (e) => {
     e.preventDefault();
     const requestOptions = {
@@ -33,7 +36,10 @@ const DeleteEmployee = ({ record, fetchEmployee, handleCancel }) => {
       body: JSON.stringify(formData),
     };
     try {
-      const res = await fetch(`${jsonServerUrl}/${id}`, requestOptions);
+      const res = await fetch(
+        `${jsonServerUrl}/employees/${id}`,
+        requestOptions
+      );
       if (res) {
         message.success("Deleted Successfully");
         fetchEmployee();

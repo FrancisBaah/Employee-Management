@@ -11,6 +11,7 @@ const SetSupervisor = ({ record, dataSource, fetchEmployee, handleCancel }) => {
   const { name, supervisor, id } = formData;
 
   useEffect(() => {
+    //Setting form data to received props
     record &&
       setFormData({
         id: record?.id || "",
@@ -19,9 +20,12 @@ const SetSupervisor = ({ record, dataSource, fetchEmployee, handleCancel }) => {
       });
   }, [record]);
 
+  //Picking input values
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  //API Call to set Supervisor
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!id || !supervisor) {

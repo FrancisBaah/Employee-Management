@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Spin } from "antd";
-import ReOrganize from "./ReOrganize";
-import { jsonServerUrl } from "./API/jsonServerURL";
+import GetAllEmployee from "./employee/GetAllEmployee";
 
-//Nested Employee to Get Hierarchy
 const EmployeeNode = ({ employee, index }) => {
   if (!employee || !employee.subordinates) {
     return null;
@@ -22,7 +20,7 @@ const EmployeeNode = ({ employee, index }) => {
         >
           <span className="button-bar m-1">{employee.name}</span>
           {employee.subordinates.length > 0 && (
-            <ul className="p-2 pl-[70px] border-black border-l-[1px]">
+            <ul className="p-1 pl-[70px] border-black border-l-[1px]">
               {employee.subordinates.map((subordinate, idx) => (
                 <EmployeeNode
                   key={subordinate.id}
@@ -38,30 +36,30 @@ const EmployeeNode = ({ employee, index }) => {
   );
 };
 
-const ChainOfCommand = () => {
+const ReOrganize = () => {
   const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  //Fetching employess and Mapping employee to Subordinate
-  const fetchEmployee = async () => {
+  //Getting fetched Employee Data
+  const { employeData, loading, fetchEmployee, setLoading } = GetAllEmployee();
+
+  //Mapping employee to Subordinate
+  const GetEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`);
-      const data = await res.json();
-      if (data && Array.isArray(data)) {
+      if (employeData && Array.isArray(employeData)) {
         setLoading(false);
         const employeesMap = new Map();
         const hierarchy = [];
-        data?.forEach((employee) => {
-          employeesMap.set(employee?.id, { ...employee, subordinates: [] });
+        employeData.forEach((employee) => {
+          employeesMap.set(employee?.name, { ...employee, subordinates: [] });
         });
-        data?.forEach((employee) => {
+        employeData.forEach((employee) => {
           const supervisorId = employee.supervisor;
           const supervisor = employeesMap.get(supervisorId);
           if (supervisor) {
-            supervisor.subordinates.push(employeesMap.get(employee?.id));
+            supervisor.subordinates.push(employeesMap.get(employee?.name));
           } else {
-            hierarchy.push(employeesMap.get(employee?.id));
+            hierarchy.push(employeesMap.get(employee?.name));
           }
         });
         setDataSource(hierarchy);
@@ -72,8 +70,9 @@ const ChainOfCommand = () => {
   };
 
   useEffect(() => {
-    fetchEmployee();
-  }, []);
+    GetEmployee();
+    employeData.length === 0 && fetchEmployee();
+  }, [employeData]);
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -92,7 +91,7 @@ const ChainOfCommand = () => {
   return loading ? (
     <Spin />
   ) : (
-    <section className="max-h-[500px] overflow-auto flex justify-between">
+    <section className="">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="employees">
           {(provided) => (
@@ -113,9 +112,8 @@ const ChainOfCommand = () => {
           )}
         </Droppable>
       </DragDropContext>
-      {/* <ReOrganize /> */}
     </section>
   );
 };
 
-export default ChainOfCommand;
+export default ReOrganize;

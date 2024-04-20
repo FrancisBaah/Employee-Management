@@ -6,9 +6,12 @@ const AddEmployee = ({ dataSource, fetchEmployee, handleCancel }) => {
   const [formData, setFormData] = useState({ name: "", supervisor: "" });
   const { name, supervisor } = formData;
 
+  //Picking input value
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  //API call to Add employee
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!name) {

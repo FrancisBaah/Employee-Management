@@ -8,12 +8,16 @@ import SetSupervisor from "./SetSupervisor";
 import DeleteEmployee from "./DeleteEmployee";
 
 const Employee = () => {
+  //Setting Popup States
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowData, setRowData] = useState([]);
   const [modalType, setModalType] = useState(null);
+
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [nameFilter, setNameFilter] = useState("");
+
+  //Search Filters
   const filteredData = dataSource.filter((item) => {
     return (
       item.name.toLowerCase().includes(nameFilter.toLocaleLowerCase()) ||
@@ -21,25 +25,27 @@ const Employee = () => {
     );
   });
 
+  //Closing Popups
   const handleCancel = () => {
     setIsModalOpen(false);
     setModalType(null);
   };
-
+  // Handling Popup events
   const handleModalOpen = (type, record) => {
     setModalType(type);
     setIsModalOpen(true);
     setRowData(record);
   };
 
+  //API Call to fetch employees
   const fetchEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}`);
+      const res = await fetch(`${jsonServerUrl}/employees`);
       const data = await res.json();
-      console.log(data);
+      //   console.log(data);
       if (data) {
-        const tableArray = data.employees?.map((item) => ({
+        const tableArray = data?.map((item) => ({
           key: item.id || "",
           id: item.id || "",
           name: item.name || "",
