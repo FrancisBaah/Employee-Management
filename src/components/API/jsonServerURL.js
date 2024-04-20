@@ -1,2 +1,2 @@
 const jsonServerPort = 3005;
-export const jsonServerUrl = `http://localhost:${jsonServerPort}`;
+export const jsonServerUrl = `https://employee-management-topaz.vercel.app/api/jsonserver`;

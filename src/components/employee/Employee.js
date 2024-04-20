@@ -35,7 +35,7 @@ const Employee = () => {
   const fetchEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`);
+      const res = await fetch(`${jsonServerUrl}`);
       const data = await res.json();
       //   console.log(data);
       if (data) {

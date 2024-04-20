@@ -43,7 +43,7 @@ const ChainOfCommand = () => {
   const fetchEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`);
+      const res = await fetch(`${jsonServerUrl}`);
       const data = await res.json();
       if (data && Array.isArray(data)) {
         const employeesMap = new Map();
