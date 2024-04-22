@@ -237,7 +237,6 @@ table {
 .ant-table-container {
   position: relative;
   overflow-y: auto;
-  max-height: 400px;
 }
 td,
 th {
@@ -281,4 +280,9 @@ th {
     font-size: 12px;
     padding: 2px 8px !important;
   }
+}
+
+.dark-mode {
+  background: #151718 !important;
+  color: #ffffff !important;
 }

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-const HeaderTitle = ({ title }) => {
+const HeaderTitle = ({ lightOrDark }) => {
   const location = useLocation();
   const segments = location.pathname.split("/");
 
@@ -36,7 +36,15 @@ const HeaderTitle = ({ title }) => {
       capitalizedSegments[i] +
       (capitalizedSegments.length - 1 === i ? "" : " / ");
   }
-  return <p className="header-title capitalize my-4">{finalString}</p>;
+  return (
+    <p
+      className={`${
+        lightOrDark === "dark" && "dark-mode"
+      }header-title capitalize my-4`}
+    >
+      {finalString}
+    </p>
+  );
 };
 
 export default HeaderTitle;

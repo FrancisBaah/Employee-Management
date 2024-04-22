@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Spin } from "antd";
-import ReOrganize from "./ReOrganize";
 import { jsonServerUrl } from "./API/jsonServerURL";
 
 //Nested Employee to Get Hierarchy
@@ -92,7 +91,7 @@ const ChainOfCommand = () => {
   return loading ? (
     <Spin />
   ) : (
-    <section className="max-h-[500px] overflow-auto flex justify-between">
+    <section className="">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="employees">
           {(provided) => (
@@ -113,8 +112,6 @@ const ChainOfCommand = () => {
           )}
         </Droppable>
       </DragDropContext>
-      {/*Need to Comment ReOrganize for testing to pass */}
-      <ReOrganize />
     </section>
   );
 };

@@ -8,12 +8,14 @@ const { Header, Content } = Layout;
 
 const MainLayout = ({ children }) => {
   const [closeSidebar, setCloseSidebar] = useState(false);
+  const [lightOrDark, setLightOrDark] = useState("light");
+
   const router = useNavigate();
   return (
-    <Layout className="w-full overflow-auto flex flex-row">
+    <Layout className="w-full h-screen flex flex-row overflow-hidden">
       <div className="max-w-[200px] border-r-[1px] border-gray-200">
         <div className={`${closeSidebar && "hidden"} h-full w-full`}>
-          <Sidebar />
+          <Sidebar lightOrDark={lightOrDark} setLightOrDark={setLightOrDark} />
         </div>
       </div>
       <div className="w-full">
@@ -22,14 +24,17 @@ const MainLayout = ({ children }) => {
             background: "#FFFFFF",
             color: "#000000",
           }}
-          className="w-full p-0 md:px-5 shadow-sm flex justify-between items-center"
+          className={`${
+            lightOrDark === "dark" && "dark-mode"
+          } w-full p-0 md:px-5 shadow-sm flex justify-between items-center`}
         >
           <div className="flex items-center gap-2">
             <HiBars3
               onClick={() => setCloseSidebar(!closeSidebar)}
               className="w-7 h-7 cursor-pointer"
             />
-            <HeaderTitle />
+            {/* Importing Header Title */}
+            <HeaderTitle lightOrDark={lightOrDark} />
           </div>
           <Button
             onClick={() => router("/chain-of-command")}
@@ -39,11 +44,11 @@ const MainLayout = ({ children }) => {
           </Button>
         </Header>
         <Content
-          className="p-0 py-2 md:px-5 w-full"
+          className="p-0 py-2 md:px-5 w-full h-full"
           style={{
-            marginTop: "15px",
+            marginTop: "1px",
             minHeight: 280,
-            background: "#FFFFFF",
+            background: lightOrDark === "dark" ? "#151718" : "#FFFFFF",
           }}
         >
           {children}

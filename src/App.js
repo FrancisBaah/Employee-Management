@@ -4,7 +4,7 @@ import MainLayout from "./components/MainLayout";
 import Employee from "./components/employee/Employee";
 import WelcomePage from "./components/WelcomePage";
 import Dashboard from "./components/Dashboard";
-import ChainOfCommand from "./components/ChainOfCommand";
+import ReOrganize from "./components/ReOrganize";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<WelcomePage />} />
           <Route
             path="/chain-of-command"
-            element={<MainLayout>{<ChainOfCommand />}</MainLayout>}
+            element={<MainLayout>{<ReOrganize />}</MainLayout>}
           />
           <Route
             path="/Dashboard"

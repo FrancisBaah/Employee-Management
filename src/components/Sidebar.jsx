@@ -8,14 +8,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoMoonOutline } from "react-icons/io5";
 import { FaUser, FaUsers } from "react-icons/fa";
 
-const Sidebar = () => {
+const Sidebar = ({ lightOrDark, setLightOrDark }) => {
   const location = useLocation();
   const pathname = location.pathname.split("/");
   const currentKey = pathname.pop();
   const router = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(currentKey);
-  const [lightOrDark, setLightOrDark] = useState("light");
 
   function getItem(label, key, icon, children, type) {
     return {
@@ -43,11 +42,19 @@ const Sidebar = () => {
     ),
   ];
   return (
-    <div className="w-full h-full relative p-3">
-      <h1 className="logo-title">Employee Management</h1>
+    <div
+      className={`${
+        lightOrDark === "dark" && "dark-mode"
+      } w-full h-full relative p-3`}
+    >
+      <h1 className={`${lightOrDark === "dark" && "dark-mode"} logo-title`}>
+        Employee Management
+      </h1>
       <hr className="mb-1 -mt-2 w-full" />
       <Menu
-        className="w-full  overflow-auto"
+        className={`${
+          lightOrDark === "dark" && "dark-mode"
+        } w-full overflow-auto`}
         onClick={getCurrentKey}
         defaultSelectedKeys={[currentPage]}
         defaultOpenKeys={[currentPage]}

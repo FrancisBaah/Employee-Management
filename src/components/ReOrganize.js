@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Spin } from "antd";
 import GetAllEmployee from "./employee/GetAllEmployee";
+import ChainOfCommand from "./ChainOfCommand";
 
 const EmployeeNode = ({ employee, index }) => {
   if (!employee || !employee.subordinates) {
@@ -91,7 +92,8 @@ const ReOrganize = () => {
   return loading ? (
     <Spin />
   ) : (
-    <section className="">
+    <section className="max-h-[500px] overflow-auto flex justify-between">
+      <ChainOfCommand />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="employees">
           {(provided) => (
