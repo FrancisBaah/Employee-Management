@@ -18,7 +18,7 @@ const MainLayout = ({ children }) => {
           <Sidebar lightOrDark={lightOrDark} setLightOrDark={setLightOrDark} />
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full h-full">
         <Header
           style={{
             background: "#FFFFFF",
