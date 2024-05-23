@@ -2,20 +2,26 @@ import { Button, Layout } from "antd";
 import Sidebar from "./Sidebar";
 import HeaderTitle from "./HeaderTitle";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { HiBars3 } from "react-icons/hi2";
+import { ThemeContext } from "../ThemeContex";
 const { Header, Content } = Layout;
 
 const MainLayout = ({ children }) => {
   const [closeSidebar, setCloseSidebar] = useState(false);
-  const [lightOrDark, setLightOrDark] = useState("light");
+  const { lightOrDark } = useContext(ThemeContext);
 
   const router = useNavigate();
   return (
-    <Layout className="w-full h-full flex flex-row overflow-auto">
+    <Layout
+      style={{
+        background: lightOrDark === "dark" ? "#151718" : "#FFFFFF",
+      }}
+      className="w-full h-full flex flex-row overflow-auto"
+    >
       <div className="max-w-[200px] h-full border-r-[1px] border-gray-200">
         <div className={`${closeSidebar && "hidden"} h-screen w-full`}>
-          <Sidebar lightOrDark={lightOrDark} setLightOrDark={setLightOrDark} />
+          <Sidebar />
         </div>
       </div>
       <div className="w-full h-full">

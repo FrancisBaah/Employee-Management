@@ -28,6 +28,7 @@
   font-weight: 600;
   line-height: normal;
 }
+
 .sub-title {
   color: #000;
   /* text-align: center; */
@@ -285,4 +286,22 @@ th {
 .dark-mode {
   background: #151718 !important;
   color: #ffffff !important;
+}
+.dark-mode .ant-table-tbody td,
+.dark-mode h1,
+.dark-mode p,
+.dark-mode .sub-title,
+.dark-mode .ant-menu-item,
+.dark-mode .ant-menu-submenu-title {
+  background: #151718 !important;
+  color: #ffffff !important;
+}
+.dark-mode .ant-menu-item-selected,
+.dark-mode .ant-menu-item-selected a {
+  color: #f00 !important;
+}
+
+.search-dark {
+  background: #0c2d4c !important;
+  color: #fff;
 }

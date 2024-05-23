@@ -10,13 +10,13 @@ const EmployeeNode = ({ employee, index }) => {
   }
 
   return (
-    <Draggable draggableId={employee.id} index={index}>
+    <Draggable draggableId={employee._id} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          key={employee.id}
+          key={employee._id}
           className=""
         >
           <span className="button-bar m-1">{employee.name}</span>
@@ -24,7 +24,7 @@ const EmployeeNode = ({ employee, index }) => {
             <ul className="p-2 pl-[70px] border-black border-l-[1px]">
               {employee.subordinates.map((subordinate, idx) => (
                 <EmployeeNode
-                  key={subordinate.id}
+                  key={subordinate._id}
                   employee={subordinate}
                   index={idx}
                 />
@@ -52,15 +52,15 @@ const ChainOfCommand = () => {
         const employeesMap = new Map();
         const hierarchy = [];
         data?.forEach((employee) => {
-          employeesMap.set(employee?.id, { ...employee, subordinates: [] });
+          employeesMap.set(employee?._id, { ...employee, subordinates: [] });
         });
         data?.forEach((employee) => {
           const supervisorId = employee.supervisor;
           const supervisor = employeesMap.get(supervisorId);
           if (supervisor) {
-            supervisor.subordinates.push(employeesMap.get(employee?.id));
+            supervisor.subordinates.push(employeesMap.get(employee?._id));
           } else {
-            hierarchy.push(employeesMap.get(employee?.id));
+            hierarchy.push(employeesMap.get(employee?._id));
           }
         });
         setDataSource(hierarchy);
@@ -102,7 +102,7 @@ const ChainOfCommand = () => {
             >
               {dataSource.map((employee, index) => (
                 <EmployeeNode
-                  key={employee?.id}
+                  key={employee?._id}
                   employee={employee}
                   index={index}
                 />

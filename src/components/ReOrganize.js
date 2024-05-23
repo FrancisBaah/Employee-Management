@@ -10,13 +10,13 @@ const EmployeeNode = ({ employee, index }) => {
   }
 
   return (
-    <Draggable draggableId={employee.id} index={index}>
+    <Draggable draggableId={employee._id} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          key={employee.id}
+          key={employee._id}
           className=""
         >
           <span className="button-bar m-1">{employee.name}</span>
@@ -24,7 +24,7 @@ const EmployeeNode = ({ employee, index }) => {
             <ul className="p-1 pl-[70px] border-black border-l-[1px]">
               {employee.subordinates.map((subordinate, idx) => (
                 <EmployeeNode
-                  key={subordinate.id}
+                  key={subordinate._id}
                   employee={subordinate}
                   index={idx}
                 />
@@ -104,7 +104,7 @@ const ReOrganize = () => {
             >
               {dataSource.map((employee, index) => (
                 <EmployeeNode
-                  key={employee?.id}
+                  key={employee?._id}
                   employee={employee}
                   index={index}
                 />

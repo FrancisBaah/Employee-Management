@@ -1,11 +1,12 @@
 import { Button, Input, Modal, Popover, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 import { serverURI } from "../API/API_URI";
 import AddEmployee from "./AddEmployee";
 import { MdEdit } from "react-icons/md";
 import SetSupervisor from "./SetSupervisor";
 import DeleteEmployee from "./DeleteEmployee";
+import { ThemeContext } from "../../ThemeContex";
 
 const Employee = () => {
   //Setting Popup States
@@ -16,6 +17,7 @@ const Employee = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [nameFilter, setNameFilter] = useState("");
+  const { lightOrDark } = useContext(ThemeContext);
 
   //Search Filters
   const filteredData = dataSource.filter((item) => {
@@ -146,7 +148,7 @@ const Employee = () => {
           <Input
             value={nameFilter}
             onChange={(e) => setNameFilter(e.target.value)}
-            className="search-bar"
+            className={`${lightOrDark === "dark" && "search-dark"} search-bar`}
             prefix={<SearchOutlined />}
             placeholder="Search Name of Employee or Supervisor"
           />
@@ -173,6 +175,7 @@ const Employee = () => {
         </Modal>
       </div>
       <Table
+        className={`${lightOrDark === "dark" && "dark-mode"}`}
         size="small"
         dataSource={filteredData}
         columns={columns}

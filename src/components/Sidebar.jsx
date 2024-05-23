@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { MdOutlineLightMode } from "react-icons/md";
@@ -7,14 +7,16 @@ import { FiUsers } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoMoonOutline } from "react-icons/io5";
 import { FaUser, FaUsers } from "react-icons/fa";
+import { ThemeContext } from "../ThemeContex";
 
-const Sidebar = ({ lightOrDark, setLightOrDark }) => {
+const Sidebar = () => {
   const location = useLocation();
   const pathname = location.pathname.split("/");
   const currentKey = pathname.pop();
   const router = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(currentKey);
+  const { lightOrDark, setLightOrDark } = useContext(ThemeContext);
 
   function getItem(label, key, icon, children, type) {
     return {
@@ -81,16 +83,16 @@ const Sidebar = ({ lightOrDark, setLightOrDark }) => {
           <span
             onClick={() => setLightOrDark("light")}
             className={`${
-              lightOrDark === "light" ? "bg-white lightORDark" : ""
-            } flex gap-2 items-center justify-center text-white w-[70px] rounded-md cursor-pointer`}
+              lightOrDark === "light" ? "bg-white" : ""
+            } flex gap-2 items-center justify-center w-[70px] rounded-md cursor-pointer`}
           >
             <MdOutlineLightMode /> Light
           </span>
           <span
             onClick={() => setLightOrDark("dark")}
             className={`${
-              lightOrDark === "dark" ? "bg-white lightORDark" : ""
-            } flex gap-2 items-center justify-center  text-white w-[70px] rounded-md cursor-pointer`}
+              lightOrDark === "dark" ? "dark-mode border-white border" : ""
+            } flex gap-2 items-center text-white justify-center w-[70px] rounded-md cursor-pointer`}
           >
             <IoMoonOutline /> Dark
           </span>
