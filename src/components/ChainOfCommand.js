@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Spin } from "antd";
-import { jsonServerUrl } from "./API/jsonServerURL";
+import { serverURI } from "./API/API_URI";
 
 //Nested Employee to Get Hierarchy
 const EmployeeNode = ({ employee, index }) => {
@@ -45,7 +45,7 @@ const ChainOfCommand = () => {
   const fetchEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`);
+      const res = await fetch(serverURI);
       const data = await res.json();
       if (data && Array.isArray(data)) {
         setLoading(false);

@@ -12,9 +12,9 @@ const MainLayout = ({ children }) => {
 
   const router = useNavigate();
   return (
-    <Layout className="w-full h-screen flex flex-row overflow-hidden">
-      <div className="max-w-[200px] border-r-[1px] border-gray-200">
-        <div className={`${closeSidebar && "hidden"} h-full w-full`}>
+    <Layout className="w-full h-full flex flex-row overflow-auto">
+      <div className="max-w-[200px] h-full border-r-[1px] border-gray-200">
+        <div className={`${closeSidebar && "hidden"} h-screen w-full`}>
           <Sidebar lightOrDark={lightOrDark} setLightOrDark={setLightOrDark} />
         </div>
       </div>

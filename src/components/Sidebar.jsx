@@ -45,22 +45,24 @@ const Sidebar = ({ lightOrDark, setLightOrDark }) => {
     <div
       className={`${
         lightOrDark === "dark" && "dark-mode"
-      } w-full h-full relative p-3`}
+      } w-full h-full flex flex-col justify-between p-3`}
     >
-      <h1 className={`${lightOrDark === "dark" && "dark-mode"} logo-title`}>
-        Employee Management
-      </h1>
-      <hr className="mb-1 -mt-2 w-full" />
-      <Menu
-        className={`${
-          lightOrDark === "dark" && "dark-mode"
-        } w-full overflow-auto`}
-        onClick={getCurrentKey}
-        defaultSelectedKeys={[currentPage]}
-        defaultOpenKeys={[currentPage]}
-        items={items}
-      />
-      <div className="absolute bottom-2">
+      <div>
+        <h1 className={`${lightOrDark === "dark" && "dark-mode"} logo-title`}>
+          Employee Management
+        </h1>
+        <hr className="mb-1 -mt-2 w-full" />
+        <Menu
+          className={`${
+            lightOrDark === "dark" && "dark-mode"
+          } w-full overflow-auto`}
+          onClick={getCurrentKey}
+          defaultSelectedKeys={[currentPage]}
+          defaultOpenKeys={[currentPage]}
+          items={items}
+        />
+      </div>
+      <div>
         <div className="border border-black mt-2 p-1 rounded-lg">
           <div className="w-full flex flex-row items-center justify-evenly border-black border rounded-md">
             <div className="admin-profile">

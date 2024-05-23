@@ -1,6 +1,6 @@
 import { Button, Input, Select, message } from "antd";
 import { useEffect, useState } from "react";
-import { jsonServerUrl } from "../API/jsonServerURL";
+import { serverURI } from "../API/API_URI";
 
 const SetSupervisor = ({ record, dataSource, fetchEmployee, handleCancel }) => {
   const [formData, setFormData] = useState({
@@ -41,10 +41,7 @@ const SetSupervisor = ({ record, dataSource, fetchEmployee, handleCancel }) => {
       body: JSON.stringify(formData),
     };
     try {
-      const res = await fetch(
-        `${jsonServerUrl}/employees/${id}`,
-        requestOptions
-      );
+      const res = await fetch(`${serverURI}/${id}`, requestOptions);
       if (res) {
         message.success("Supervisor Assigned");
         fetchEmployee();

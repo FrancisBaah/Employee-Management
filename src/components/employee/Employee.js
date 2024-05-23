@@ -1,7 +1,7 @@
 import { Button, Input, Modal, Popover, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
-import { jsonServerUrl } from "../API/jsonServerURL";
+import { serverURI } from "../API/API_URI";
 import AddEmployee from "./AddEmployee";
 import { MdEdit } from "react-icons/md";
 import SetSupervisor from "./SetSupervisor";
@@ -41,13 +41,13 @@ const Employee = () => {
   const fetchEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`);
+      const res = await fetch(serverURI);
       const data = await res.json();
       //   console.log(data);
       if (data) {
         const tableArray = data?.map((item) => ({
-          key: item.id || "",
-          id: item.id || "",
+          key: item._id || "",
+          id: item._id || "",
           name: item.name || "",
           supervisor: item.supervisor || "",
         }));

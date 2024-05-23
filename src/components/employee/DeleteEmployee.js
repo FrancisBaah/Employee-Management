@@ -1,6 +1,6 @@
 import { Button, Input, message } from "antd";
 import { useState, useEffect } from "react";
-import { jsonServerUrl } from "../API/jsonServerURL";
+import { serverURI } from "../API/API_URI";
 
 const DeleteEmployee = ({ record, fetchEmployee, handleCancel }) => {
   const [formData, setFormData] = useState({
@@ -36,10 +36,7 @@ const DeleteEmployee = ({ record, fetchEmployee, handleCancel }) => {
       body: JSON.stringify(formData),
     };
     try {
-      const res = await fetch(
-        `${jsonServerUrl}/employees/${id}`,
-        requestOptions
-      );
+      const res = await fetch(`${serverURI}/${id}`, requestOptions);
       if (res) {
         message.success("Deleted Successfully");
         fetchEmployee();

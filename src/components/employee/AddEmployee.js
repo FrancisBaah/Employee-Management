@@ -1,6 +1,6 @@
 import { Button, Input, Select, message } from "antd";
 import { useState } from "react";
-import { jsonServerUrl } from "../API/jsonServerURL";
+import { serverURI } from "../API/API_URI";
 
 const AddEmployee = ({ dataSource, fetchEmployee, handleCancel }) => {
   const [formData, setFormData] = useState({ name: "", supervisor: "" });
@@ -28,7 +28,7 @@ const AddEmployee = ({ dataSource, fetchEmployee, handleCancel }) => {
       body: JSON.stringify(formData), // Convert data to JSON string
     };
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`, requestOptions);
+      const res = await fetch(serverURI, requestOptions);
       if (res) {
         message.success("Employee has been Added Successfully");
         fetchEmployee();

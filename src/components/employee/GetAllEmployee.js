@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { jsonServerUrl } from "../API/jsonServerURL";
+import { serverURI } from "../API/API_URI";
 
 const GetAllEmployee = () => {
   const [employeData, setEmployeData] = useState([]);
@@ -9,7 +9,7 @@ const GetAllEmployee = () => {
   const fetchEmployee = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${jsonServerUrl}/employees`);
+      const res = await fetch(serverURI);
       const data = await res.json();
       if (data && Array.isArray(data)) {
         setLoading(false);
